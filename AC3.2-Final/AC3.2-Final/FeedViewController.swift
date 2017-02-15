@@ -26,8 +26,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         feedtableView.rowHeight = UITableViewAutomaticDimension
         feedtableView.delegate = self
         feedtableView.dataSource = self
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getDatabaseContent()
@@ -47,10 +47,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 450.0
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -68,7 +64,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let error = error {
                 print(error)
             } else {
-                // Data for "images/island.jpg" is returned
                 let image = UIImage(data: data!)
                 cell.feedImageView.image = image
             }

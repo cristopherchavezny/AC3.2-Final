@@ -26,7 +26,6 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         databaseReference = FIRDatabase.database().reference().child("posts/")
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapImageView))
         uploadImageView.addGestureRecognizer(gesture)
-        
     }
     
     func didTapImageView() {
@@ -50,7 +49,6 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         dismiss(animated: true) { 
             guard let image = self.selectedImage else {return }
             self.uploadImageView.image = image
-            
         }
     }
     
@@ -63,6 +61,8 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         if checkIfAllFieldsHaveContent() {
             shareToFirebase()
+        } else {
+            self.showAlert(title: "Upload Failed!!!", errorMessage: "You must pick a photo")
         }
     }
     
@@ -96,7 +96,6 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.showAlert(title: "Upload Successful!", errorMessage: error?.localizedDescription)
             }
         }
-        
     }
     
     func showAlert(title: String, errorMessage: String?) {
@@ -106,23 +105,5 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.present(alert, animated: true, completion: nil)
         
     }
-
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
